@@ -104,7 +104,14 @@
       ufw:
         rule: allow
         name: Nginx Full
-
+    - name: http
+      ufw:
+        rule: allow
+        name: 'Nginx HTTP'
+    - name: https
+      ufw:
+        rule: allow
+        name: 'Nginx HTTPS'
     - name: Obtain SSL certificate
       shell: "certbot --nginx --noninteractive --agree-tos --email marokocurtis@gmail.com -d teamcurtis.duckdns.org -d www.teamcurtis.duckdns.org"
       become: yes
