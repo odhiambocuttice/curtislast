@@ -1,7 +1,7 @@
 server {
     listen [::]:80 default_server;
     listen 80 default_server;
-    server_name teamodhis.tk www.teamodhis.tk;
+    server_name teamcurtis.duckdns.org www.teamcurtis.duckdns.org;
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
