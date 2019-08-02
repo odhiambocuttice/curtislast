@@ -30,7 +30,8 @@
         repo: 'https://github.com/odhiambocuttice/curtislast.git'
         dest: app/curtislast/
         update: no
-
+    - name: dont Install
+      command: sudo -H pip3 install --ignore-installed PyYAML
 
     - name: Install project requirements
       pip:
