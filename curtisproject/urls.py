@@ -40,4 +40,5 @@ urlpatterns = [
     path('api/sampleapi', sample_api),
     path('accounts/', include('allauth.urls')),
     path('', TemplateView.as_view(template_name='login/index.html')),
+    path('sentry-debug/', trigger_error),
      ]
