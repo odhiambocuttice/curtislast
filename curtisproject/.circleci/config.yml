@@ -1,0 +1,69 @@
+version: 2.1
+workflows:
+  build:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /.*/
+      
+     
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      - checkout
+      
+      - run:
+          name: install python dependencies
+          command: |
+           pip install --user --upgrade pip
+           python3 -m venv last
+           . last/bin/activate
+           pip3 install -r requirements.txt
+            
+    
+      - run:
+          name: run tests
+          command: |
+           . dockerproject/bin/activate
+           tox
+           coverage run --source='.' manage.py test
+           coverage report --fail-under=100
+      - store_artifacts:
+          path: htmlcov/
+ 
+      
+      - run:
+          name: install python dependencies
+          command: |
+            pip install --upgrade pip
+            python3 -m venv las
+            . last/bin/activate
+            pip3 install -r requirements.txt
+      
+      - run:
+          name: run tests
+          command: |
+           . last/bin/activate
+           coverage run --source='.' manage.py test
+           coverage report
+     
+      
+  
+      # - run:
+      #     name: init .pypirc
+      #     command: |
+      #       echo -e "[pypi]" >> ~/.pypirc
+      #       echo -e "username = cuttice" >> ~/.pypirc
+      #       echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
+      # - run:
+      #     name: create packages
+      #     command: |
+      #       python setup.py sdist bdist_wheel
+      # - run:
+      #     name: upload to pypi
+      #     command: |
+      #       . dockerproject/bin/activate
+      #       twine upload dist/*
