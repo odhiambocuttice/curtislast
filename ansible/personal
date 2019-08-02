@@ -1,19 +1,15 @@
- server {
-    listen 8000;
-    server_name odhiambo.tk;
+server {
+    listen [::]:80 default_server;
+    listen 80 default_server;
+    server_name teamodhis.tk www.teamodhis.tk;
 
     location = /favicon.ico { access_log off; log_not_found off; }
-
     location /static/ {
-            root /home/cuttice/dockerproject/docker/app-version;
+        root /home/ubuntu/app/curtislast;
     }
 
     location / {
-            include proxy_params;
-            proxy_pass http://unix:/home/cuttice/dockerproject/docker/app-versionpersonalapp.sock;
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/app/curtislast/curtisproject.sock;
     }
 }
-
-
-
-

@@ -1,77 +1,115 @@
 ---
+- hosts: all
+  vars_files:
+    - vars.yml
+  gather_facts: false
+  become: yes
 
-  - hosts: all
-  
-    become: yes
-   
-    tasks:
-      - name: Create file
-        copy:
-          src: /home/cuttice/add.py
+  tasks:
+    - name: Install pip
+      apt:
+        name: python3-pip
+        update_cache: yes
+        state: latest
 
-          dest: /dockerproject
-     
-      - name: Install dependancies
-        apt: name={{ item }} state=installed
-        with_items:
-          - python3-setuptools
-          - python3-dev
-          - build-essential
-          - python3-apt
-          - flake8
-          - locales
-          - htop
-          - git
-          - supervisor
-          - gunicorn
-          - python3-pip
-          - nginx
-        tags:
-         - packages
-      - name: Upgrade pip
-        pip: name=pip state=latest
-        tags:
-         - packages
+    - name: Upgrade pip
+      pip: name=pip state=latest
+
+    - name: Create directory for app
+      file: path={{ install_root }}/{{ project_name }} state=directory
+
+    - name: Recursively change ownership of a directory
+      file:
+        path: /home/ubuntu/app/curtislast
+        state: directory
+        recurse: yes
+        owner: ubuntu
+
+    - name: Pull project from github
+      git:
+        repo: 'https://github.com/odhiambocuttice/curtislast.git'
+        dest: app/curtislast/
+        update: no
 
 
-      
-      # - name: installed
-      #   shell: pip install -r requirements.txt
-      
-      - name: Pull project from github
-        git:
-          repo: 'https://github.com/odhiambocuttice/app-version3.git'
-          dest: cuttice
-          update: no
-          force: no
-     
+    - name: Install project requirements
+      pip:
+        requirements: /home/ubuntu/app/curtislast/requirements.txt
 
-      - name: ensure nginx is at the latest version
-        apt: name=nginx state=latest
-        become: yes
-      - name: start nginx
-        service:
-            name: nginx
-            state: started
-        become: yes
-      - name: configure nginx file
-        copy:
-          src: /etc/nginx/sites-available/personalapp
-          dest: /etc/nginx/sites-available
-        become: yes
-      - name: link
-        file:
-          src: /etc/nginx/sites-available/personalapp
-          dest: /etc/nginx/sites-enabled/default
-          state: link
-        become: yes
-      
-      - name: restart nginx
-        service:
-          name: nginx
-          state: restarted
-        become: yes
-      - name: gunicorn
-        become: True
-        command: gunicorn --daemon --workers 3 --bind unix:/home/ubuntu/cuttice/personalapp.sock personalapp.wsgi;
-      
+
+    - name: copy nginx config
+      copy:
+        src: /home/ubuntu/app/curtislast/ansible/personal
+        dest: /etc/nginx/sites-available/personal
+        remote_src: yes
+
+
+    - name: Create symbolic link
+      file:
+        src: /etc/nginx/sites-available/personal
+        dest: /etc/nginx/sites-enabled/personal
+        state: link
+
+
+    - name: make sure nginx server is running
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    # - name: make sure postgresql server is running
+    #   service: name=postgresql state=started
+
+    # - name: create database
+    #   become_user: postgres
+    #   postgresql_db: name=circle_test
+
+    # - name: Configure a new postgresql user
+    #   become: true
+    #   become_user: postgres
+    #   postgresql_user: db=circle_test
+    #                               name=postgres
+    #                               password=password
+    #                               encrypted=yes
+    #                               priv=ALL
+    #                               role_attr_flags=NOSUPERUSER
+    #   become: yes
+    #   become_user: postgres
+
+
+    - name: Make migrations
+      shell:
+        python3 /home/ubuntu/app/curtislast/manage.py migrate
+
+
+    - name: start gunicorn
+      become: True
+      command: gunicorn --daemon --workers 3 --bind unix:/home/ubuntu/app/curtislast/curtisproject.sock curtisproject.wsgi
+      args:
+        chdir: /home/ubuntu/app/curtislast
+
+
+
+    - name: Enable UFW
+      ufw:
+        state: enabled
+
+    - name: Allow OpenSSH
+      ufw:
+        rule: allow
+        name: OpenSSH
+
+    - name: Allow Nginx full
+      ufw:
+        rule: allow
+        name: Nginx Full
+
+    - name: Obtain SSL certificate
+      shell: "certbot --nginx --noninteractive --agree-tos --email odhiambocuttice@gmail.com -d teamodhis.tk -d www.teamodhis.tk"
+      become: yes
+
+
+
+  handlers:
+    - name: restart nginx
+      service: name=nginx state=restarted

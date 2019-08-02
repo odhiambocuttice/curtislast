@@ -1,23 +1,27 @@
 ---
+# a unix path-friendly name (IE, no spaces or special characters)
+project_name: "curtislast"
 
-project_name: project_todo
-install_root: /home/Desktop
+# the base path to install to.
+install_root: /app
 
-db_name: django_todo
-db_user: postgres
-db_password: postgres
+
+project_repo: https://github.com/odhiambocuttice/curtislast.git
+              
+# any directories that need to be added to the PYTHONPATH.
+pythonpath: "{{ install_root }}/{{ project_name }}/listproject"
+
+# the dns name or names (space separated) for your server
+server_name: teamodhis.tk www.teamodhis.tk
+
+
 
 system_packages:
   - git
   - nginx
   - gunicorn
-  - postgresql
-  - postgresql-server-dev-all
   - python3-pip
-  - python-dev
-  - python-psycopg2
-
-project_repo: https://github.com/KennethMathenge/Django.git
-static_root: "{{ install_root }}/{{ project_name }}/static"
-wsgi_module: project_todo.wsgi
-server_name: localhost
+  - python3-dev
+  - libpq-dev
+  - python-certbot-nginx
+  - nano
