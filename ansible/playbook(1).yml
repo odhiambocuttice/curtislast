@@ -58,24 +58,7 @@
         state: started
         enabled: yes
 
-    # - name: make sure postgresql server is running
-    #   service: name=postgresql state=started
-
-    # - name: create database
-    #   become_user: postgres
-    #   postgresql_db: name=circle_test
-
-    # - name: Configure a new postgresql user
-    #   become: true
-    #   become_user: postgres
-    #   postgresql_user: db=circle_test
-    #                               name=postgres
-    #                               password=password
-    #                               encrypted=yes
-    #                               priv=ALL
-    #                               role_attr_flags=NOSUPERUSER
-    #   become: yes
-    #   become_user: postgres
+   
 
 
     - name: Make migrations
@@ -113,7 +96,7 @@
         rule: allow
         name: 'Nginx HTTPS'
     - name: Obtain SSL certificate
-      shell: "certbot --nginx --noninteractive --agree-tos --email marokocurtis@gmail.com -d teamcurtis.duckdns.org -d www.teamcurtis.duckdns.org"
+      shell: "certbot --nginx --noninteractive --agree-tos --email codhiambo@healthcloud.co.ke -d chakula.duckdns.org -d www.chakula.duckdns.org"
       become: yes
 
 
