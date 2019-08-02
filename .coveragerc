@@ -3,7 +3,7 @@ omit =
   *apps.py,
   *migrations/*,
   *settings*,
-  *personalapp/*,
+  *last/*,
   *forms.py
   *wsgi/*,
   *wsgi.py,
@@ -11,6 +11,10 @@ omit =
   *views/*,
   *last/*,
   *setup.py,
+  *snippets/*,
+  *photos/*,
+  *feedback/*,
+  *curtisproject/*,
 
 
   manage.py
