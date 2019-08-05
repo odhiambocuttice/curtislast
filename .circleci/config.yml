@@ -34,7 +34,7 @@ jobs:
             
             coverage run --source="." manage.py test
             coverage report --fail-under=60
-            coverage report -m
+           
 
 
 
@@ -53,25 +53,25 @@ jobs:
       #       python setup.py verify
 
       - run:
-      #     name: pypi initialization
-      #     command: |
-      #       echo -e "[pypi]" >> ~/.pypirc
-      #       echo -e "username = cuttice" >> ~/.pypirc
-      #       echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc      
+          name: pypi initialization
+          command: |
+            echo -e "[pypi]" >> ~/.pypirc
+            echo -e "username = cuttice" >> ~/.pypirc
+            echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc      
 
-      # - run:
-      #     name: create packages
-      #     command: |
-      #       python3 setup.py sdist bdist_wheel
+      - run:
+          name: create packages
+          command: |
+            python3 setup.py sdist bdist_wheel
            
 
-      # - run:
-      #     name: upload to pypi
-      #     command: |
-      #       python3 -m venv last
-      #       . last/bin/activate
-      #       pip install twine
-      #       twine upload dist/*
+      - run:
+          name: upload to pypi
+          command: |
+            python3 -m venv last
+            . last/bin/activate
+            pip install twine
+            twine upload dist/*
       
       - add_ssh_keys:
           fingerprints:
