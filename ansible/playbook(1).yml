@@ -44,6 +44,8 @@
         update: no
     - name: dont Install
       command: sudo -H pip3 install --ignore-installed PyYAML
+    - name: dont Install
+      command: sudo -H pip3 install --ignore-installed  pkg-resources==0.0.0
     
     - name: Install project requirements
       pip:
