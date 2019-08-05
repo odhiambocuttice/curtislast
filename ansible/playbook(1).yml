@@ -6,16 +6,23 @@
   become: yes
 
   tasks:
+    - name: crate venv
+      shell: sudo pip3 install virtualenv
+    - name: creat venv
+      shell: python3 -m venv latest
+    - name: activate
+      shell: . latest/bin/activate
+
     - name: Install pip
       apt:
         name: python3-pip
         update_cache: yes
         state: latest
-    - name: Install pip2
-      apt:
-        name: python-pip
-        update_cache: yes
-        state: present
+    # # - name: Install pip2
+    # #   apt:
+    # #     name: python-pip
+    # #     update_cache: yes
+    #     state: present
     - name: Upgrade pip
       pip: name=pip state=latest
 
@@ -36,10 +43,13 @@
         update: no
     - name: dont Install
       command: sudo -H pip3 install --ignore-installed PyYAML
-
+    
     - name: Install project requirements
       pip:
         requirements: /home/ubuntu/app/curtislast/requirements.txt
+        virtualenv: /home/ubuntu/latest
+        virtualenv_python: python3.6
+
 
 
     - name: copy nginx config
