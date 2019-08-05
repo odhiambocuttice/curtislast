@@ -48,8 +48,8 @@
     - name: Install project requirements
       pip:
         requirements: /home/ubuntu/app/curtislast/requirements.txt
-        virtualenv: /home/ubuntu/latest
-        virtualenv_python: python3.6
+        # virtualenv: /home/ubuntu/latest
+        # virtualenv_python: python3.6
 
 
 
@@ -73,9 +73,9 @@
         state: started
         enabled: yes
 
-    - name: activate
-      shell: . latest/bin/activate
-      become: yes
+    # - name: activate
+    #   shell: . latest/bin/activate
+    #   become: yes
 
 
     - name: Make migrations
