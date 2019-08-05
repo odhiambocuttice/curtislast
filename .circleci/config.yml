@@ -85,6 +85,7 @@ jobs:
             python3 -m venv last
             . last/bin/activate
             pip install ansible
+            cd ansible
             ansible-playbook -i hosts playbook(1).yml
 
 
