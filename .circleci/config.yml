@@ -31,7 +31,6 @@ jobs:
           name: run tests
           command: |
             . last/bin/activate
-            cd last
             coverage run --source="." manage.py test
             coverage report --fail-under=100
             coverage report -m
