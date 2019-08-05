@@ -86,7 +86,7 @@ jobs:
             . last/bin/activate
             pip install ansible
             cd ansible
-            ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts playbook(1).yml
+            ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts provision.yml
            
 
 
