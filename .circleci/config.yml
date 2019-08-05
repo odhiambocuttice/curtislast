@@ -53,7 +53,7 @@ jobs:
           command: |
            . last/bin/activate
            coverage run --source='.' manage.py test
-           coverage report
+           coverage report -m
      
       
   
