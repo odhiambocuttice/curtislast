@@ -6,13 +6,14 @@
   become: yes
 
   tasks:
-    - name: crate venv
-      shell: sudo pip3 install virtualenv
-    - name: creat venv
-      shell: python3 -m venv latest
-    - name: activate
-      shell: . latest/bin/activate
-
+    # - name: crate venv
+    #   shell: sudo pip3 install virtualenv
+    #   become: yes
+    # - name: creat venv
+    #   shell: python3 -m venv latest
+    # - name: activate
+    #   shell: . latest/bin/activate
+    #   become: yes
     - name: Install pip
       apt:
         name: python3-pip
@@ -72,13 +73,15 @@
         state: started
         enabled: yes
 
-   
+    - name: activate
+      shell: . latest/bin/activate
+      become: yes
 
 
     - name: Make migrations
       shell:
         python3 /home/ubuntu/app/curtislast/manage.py migrate
-
+      
 
     - name: start gunicorn
       become: True
@@ -110,7 +113,7 @@
         rule: allow
         name: 'Nginx HTTPS'
     - name: Obtain SSL certificate
-      shell: "certbot --nginx --noninteractive --agree-tos --email codhiambo@healthcloud.co.ke -d chakula123.duckdns.org -d www.chakula123.duckdns.org"
+      shell: "certbot --nginx --noninteractive --agree-tos --email codhiambo@healthcloud.co.ke -d chakula1234.duckdns.org -d www.chakula1234.duckdns.org"
       become: yes
 
 

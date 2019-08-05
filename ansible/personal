@@ -1,7 +1,7 @@
 server {
     listen [::]:80 default_server;
     listen 80 default_server;
-    server_name chakula123.duckdns.org www.chakula123.duckdns.org;
+    server_name chakula1234.duckdns.org www.chakula1234.duckdns.org;
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
