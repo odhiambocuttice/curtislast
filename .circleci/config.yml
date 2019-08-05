@@ -1,14 +1,5 @@
 version: 2.1
-workflows:
-  build:
-    jobs:
-      - build:
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              only: master
-    
+
 jobs:
   build:
     docker:
@@ -55,28 +46,36 @@ jobs:
            coverage run --source='.' manage.py test
            coverage report -m
      
+workflows:
+  build:
+    jobs:
+      - publish:
+          filters:
+            
+            branches:
+              only: master
       
   
-  #     - run:
-  #         name: init .pypirc
-  #         command: |
-  #           echo -e "[pypi]" >> ~/.pypirc
-  #           echo -e "username = cuttice" >> ~/.pypirc
-  #           echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
-  #     - run:
-  #         name: create packages
-  #         command: |
-  #           python setup.py sdist bdist_wheel
-  #     - run:
-  #         name: upload to pypi
-  #         command: |
-  #           . last/bin/activate
-  #           twine upload dist/*
+      - run:
+          name: init .pypirc
+          command: |
+            echo -e "[pypi]" >> ~/.pypirc
+            echo -e "username = cuttice" >> ~/.pypirc
+            echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
+      - run:
+          name: create packages
+          command: |
+            python setup.py sdist bdist_wheel
+      - run:
+          name: upload to pypi
+          command: |
+            . last/bin/activate
+            twine upload dist/*
 
-  #     - run:
-  #         name: Deploy 
-  #         command: |
-  #             . last/bin/activate
-  #             ansible-playbook -i ansible/hosts ansible/provision.yml
+      - run:
+          name: Deploy 
+          command: |
+              . last/bin/activate
+              ansible-playbook -i ansible/hosts ansible/provision.yml
 
-  # 
+  
