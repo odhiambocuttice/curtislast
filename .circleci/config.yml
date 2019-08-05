@@ -21,8 +21,8 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
+            python3 -m venv last
+            . last/bin/activate
             pip install --upgrade pip
             pip install -r requirements.txt
             sudo apt install rsync
@@ -31,7 +31,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            cd locallib
+            cd last
             coverage run --source="." manage.py test
             coverage report --fail-under=100
             coverage report -m
@@ -48,8 +48,8 @@ jobs:
       - run:
           name: verify git tag vs. version
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
+            python3 -m venv last
+            . last/bin/activate
             python setup.py verify
 
       - run:
@@ -63,7 +63,7 @@ jobs:
           name: create packages
           command: |
             python3 setup.py sdist bdist_wheel
-           # python setup.py sdist
+           
 
       - run:
           name: upload to pypi
