@@ -8,6 +8,7 @@ omit =
   *wsgi/*,
   *wsgi.py,
   *views.py,
+  *models.py
   *views/*,
   *last/*,
   *setup.py,
@@ -15,6 +16,6 @@ omit =
   *photos/*,
   *feedback/*,
   *curtisproject/*,
-
+  
 
   manage.py
