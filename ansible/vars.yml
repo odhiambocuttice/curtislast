@@ -9,10 +9,10 @@ install_root: /app
 project_repo: https://github.com/odhiambocuttice/curtislast.git
               
 # any directories that need to be added to the PYTHONPATH.
-pythonpath: "{{ install_root }}/{{ project_name }}/listproject"
+pythonpath: "{{ install_root }}/{{ project_name }}/curtislast"
 
 # the dns name or names (space separated) for your server
-server_name: teamodhis.tk www.teamodhis.tk
+server_name: chakula1234.duckdns.org www.chakula1234.duckdns.org
 
 
 
