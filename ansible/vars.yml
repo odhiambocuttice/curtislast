@@ -17,6 +17,7 @@ server_name: teamodhis.tk www.teamodhis.tk
 
 
 system_packages:
+  - python3.6
   - git
   - nginx
   - gunicorn

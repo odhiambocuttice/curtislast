@@ -11,7 +11,11 @@
         name: python3-pip
         update_cache: yes
         state: latest
-
+    - name: Install pip2
+      apt:
+        name: python-pip
+        update_cache: yes
+        state: present
     - name: Upgrade pip
       pip: name=pip state=latest
 
@@ -96,7 +100,7 @@
         rule: allow
         name: 'Nginx HTTPS'
     - name: Obtain SSL certificate
-      shell: "certbot --nginx --noninteractive --agree-tos --email codhiambo@healthcloud.co.ke -d chakula.duckdns.org -d www.chakula.duckdns.org"
+      shell: "certbot --nginx --noninteractive --agree-tos --email codhiambo@healthcloud.co.ke -d chakula123.duckdns.org -d www.chakula123.duckdns.org"
       become: yes
 
 
