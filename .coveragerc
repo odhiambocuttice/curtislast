@@ -1,16 +1,12 @@
 [run]
 omit =
-  *apps.py,
+  
   *migrations/*,
-  *settings*,
   *last/*,
  
   *wsgi/*,
   *wsgi.py,
-  *views.py,
-  *models.py
-  *views/*,
-  *last/*,
+ 
   *setup.py,
   *snippets/*,
   *photos/*,
