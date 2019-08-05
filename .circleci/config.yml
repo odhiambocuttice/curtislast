@@ -44,15 +44,15 @@ jobs:
       - ANSIBLE_HOST_KEY_CHECKING: False
     steps:
       - checkout
-      - run:
-          name: verify git tag vs. version
-          command: |
-            python3 -m venv last
-            . last/bin/activate
-            python setup.py verify
+      # - run:
+      #     name: verify git tag vs. version
+      #     command: |
+      #       python3 -m venv last
+      #       . last/bin/activate
+      #       python setup.py verify
 
       - run:
-          name: init .pypirc
+          name: pypi initialization
           command: |
             echo -e "[pypi]" >> ~/.pypirc
             echo -e "username = cuttice" >> ~/.pypirc
@@ -82,7 +82,7 @@ jobs:
           command: |
             . venv/bin/activate
             pip install ansible
-            ansible-playbook -i hosts playbook.yml
+            ansible-playbook -i hosts provision.yml
 
 
 workflows:
