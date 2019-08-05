@@ -30,7 +30,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            . venv/bin/activate
+            . last/bin/activate
             cd last
             coverage run --source="." manage.py test
             coverage report --fail-under=100
