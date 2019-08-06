@@ -9,6 +9,7 @@ omit =
   *apps.py,
   *setup.py,
   *curtisproject/*,
+  *last/*,
   
 
   manage.py
