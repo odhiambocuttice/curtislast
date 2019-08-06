@@ -44,9 +44,12 @@ class TestUrls(SimpleTestCase):
         self.assertEqual(resolve(url).func, project_views)
 
 
-class TestProjectAdmin:
+# def test_an_admin_view(admin_client):
+#     response = admin_client.get('/admin/')
+#     assert response.status_code == 200
+class TestProjectAdmin(SimpleTestCase):
 	def test_expect(self):
-		 site = AdminSite()
+		 site = AdminSite(Project)
 
 
 class TestForms(SimpleTestCase):

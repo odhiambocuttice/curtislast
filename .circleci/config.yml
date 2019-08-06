@@ -32,7 +32,7 @@ jobs:
           command: |
             . last/bin/activate
             
-            coverage run --source="." manage.py test
+            pytest
             coverage report --fail-under=80
            
 
