@@ -15,7 +15,8 @@ from django.views.decorators.cache import cache_page
 # # @cache_page(CACHE_TTL)
 def hello_world(request, *args, **kwargs):
     # return HttpResponse("<h1>hello world</h1>")
-    return render(request, "hello_world.html", {})
+    
+    return render(request, "hello_world.html")
 
 
 def project_views(request):
@@ -26,8 +27,5 @@ def project_views(request):
 
 def project_create_view(request):
     form = ProjectForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        form = ProjectForm()
-    context = {"form": form}
-    return render(request, "project/project_create.html", context)
+    return render(request, "project/project_create.html", {})
+

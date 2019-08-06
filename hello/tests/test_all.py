@@ -10,7 +10,6 @@ from hello.views import project_create_view, project_views
 from django.test import TestCase, Client
 from hello.models import Project
 from django.urls import reverse
-import json
 
 
 pytestmark = pytest.mark.django_db
@@ -22,11 +21,18 @@ class TestViews(TestCase):
         response = client.get(reverse("create"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "project/project_create.html")
-       
+         
     def test_project_views_GET(self):
         client = Client()
         response = client.get(reverse("project"))
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "project/project.html")
+
+    def test_hello_views_GET(self):
+        client = Client()
+        response = client.get(reverse("home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "hello_world.html")
 
 class TestUrls(SimpleTestCase):
     def test_create_url_is_resolved(self):
@@ -38,9 +44,6 @@ class TestUrls(SimpleTestCase):
         self.assertEqual(resolve(url).func, project_views)
 
 
-# def test_an_admin_view(admin_client):
-#     response = admin_client.get('/admin/')
-#     assert response.status_code == 200
 class TestProjectAdmin:
 	def test_expect(self):
 		 site = AdminSite()
@@ -49,7 +52,7 @@ class TestProjectAdmin:
 class TestForms(SimpleTestCase):
     def test_project_form_valid(self):
         form = ProjectForm(
-            data={"title": "capuchino", "describe": "hot", "technology": "really hot"}
+            data={"title": "capuchino"}
         )
         self.assertTrue(form.is_valid())
 
@@ -57,3 +60,10 @@ class TestForms(SimpleTestCase):
         form = ProjectForm(data={})
         self.assertFalse(form.is_valid())
         self.assertTrue(len(form.errors), 3)
+
+
+class EntryModelTest(TestCase):
+
+    def test_string_representation(self):
+        entry = Project(title="title")
+        self.assertEqual(str(entry), entry.title)
