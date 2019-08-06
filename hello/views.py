@@ -27,15 +27,5 @@ def project_views(request):
 
 def project_create_view(request):
     form = ProjectForm(request.POST or None)
-    # if form.is_valid():
-    #     form.save()
-    #     form = ProjectForm()
-    # context = {"form": form}
     return render(request, "project/project_create.html", {})
-# def project_create_view(request):
-#     form = ProjectForm(request.POST or None)
-#     if form.is_valid():
-#         form.save()
-#         form = ProjectForm()
-#     context = {"form": form}
-#     return render(request, "project/project_create.html", context)
+
