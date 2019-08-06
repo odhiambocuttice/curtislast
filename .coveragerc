@@ -2,15 +2,12 @@
 omit =
   
   *migrations/*,
-  *last/*,
+  
  
   *wsgi/*,
   *wsgi.py,
- 
+  *apps.py,
   *setup.py,
-  *snippets/*,
-  *photos/*,
-  *feedback/*,
   *curtisproject/*,
   
 

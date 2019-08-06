@@ -6,4 +6,8 @@ from hello.models import Project
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ["title", "describe", "technology"]
+        fields = ["title"]
+# class ProjectForm(forms.ModelForm):
+#     class Meta:
+#         model = Project
+#         fields = ["title", "describe", "technology"]

@@ -17,9 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from django.conf.urls import url
-from feedback.views import FeedbackView
 from hello.views import hello_world, project_views, project_create_view
-from photos.views import PhotoView
 from django.views.generic import TemplateView
 from .views import login, sample_api
 def trigger_error(request):
@@ -28,13 +26,11 @@ def trigger_error(request):
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    url(r'^photos$', PhotoView.as_view(), name="photos"),
+  
     path("", hello_world, name="home"),
     path("project/", project_views, name="project"),
     path("create/", project_create_view, name="create"),
     path('', include('django_prometheus.urls')),
-    url(r'^feedback/$', FeedbackView.as_view(), name="feedback"),
-    path('', include('snippets.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('api/login', login),
     path('api/sampleapi', sample_api),
