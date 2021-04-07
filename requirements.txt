@@ -1,5 +1,5 @@
 amqp==2.5.0
-ansible==2.8.3
+ansible==2.10.0
 celery==4.3.0
 coverage==4.5.4
 Django==2.2.3
