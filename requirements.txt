@@ -2,7 +2,7 @@ amqp==2.5.0
 ansible==2.8.3
 celery==4.3.0
 coverage==4.5.4
-Django==2.2.3
+Django==2.2.24
 django-allauth==0.39.1
 django-prometheus==1.0.15
 django-redis==4.10.0
