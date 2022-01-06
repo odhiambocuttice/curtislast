@@ -1,6 +1,6 @@
 amqp==2.5.0
 ansible==2.8.3
-celery==4.3.0
+celery==5.2.2
 coverage==4.5.4
 Django==2.2.3
 django-allauth==0.39.1
